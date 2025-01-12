@@ -1,0 +1,54 @@
+#game-container {
+    padding: 20px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+  }
+
+.question-text {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 23px; 
+}
+
+#buttonCount {
+    width: 240px;
+    margin-right: 5px;
+    border: 2px solid #ccc;
+    font-size: 16px;
+}
+
+#buttonCount:focus {
+    outline: none;
+  }
+
+#startButton {
+    background-color: rgb(239, 239, 239);
+    padding: 1px 6px;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif; 
+}
+
+#buttonArea {
+    margin-top: 20px;
+    position: relative;
+    min-height: 200px;
+}
+
+#message {
+    margin: 20px 0;
+    font-size: 15px;
+}
+
+.game-button {
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    transition: background-color 0.3s; 
+}
+
+.game-button.hidden-number {
+    color: transparent;
+}
