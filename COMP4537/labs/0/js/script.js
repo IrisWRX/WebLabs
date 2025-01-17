@@ -42,7 +42,6 @@ class GameButton {
   setRandomPosition(containerWidth, containerHeight) {
     const buttonWidth = this.element.offsetWidth;
     const buttonHeight = this.element.offsetHeight;
-    // Calculate maximum positions to keep buttons within container boundaries
     const maxX = Math.max(0, containerWidth - buttonWidth);
     const maxY = Math.max(0, containerHeight - buttonHeight);
     const randomX = Math.min(maxX, Math.floor(Math.random() * maxX));
@@ -81,7 +80,6 @@ class GameState {
     this.buttons.forEach((button) => button.remove());
     this.buttons = [];
 
-    // Clear any existing timers
     if (this.scrambleTimer) {
       clearTimeout(this.scrambleTimer);
       this.scrambleTimer = null;

@@ -1,0 +1,111 @@
+/* Disclosure: style.css was developed with assistance from Claude AI (Anthropic). */
+
+:root {
+    --primary-color: #f6bd60;
+    --secondary-color: #6c757d;
+    --remove-color: #84a59d;
+    --background-color: #f8f9fa;
+    --border-color: #dee2e6;
+    --h1-color: #333;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; 
+    margin: 0;
+    padding: 30x;
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 30px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: var(--h1-color);
+    font-size: 2.5em;
+}
+
+h2 {
+    color: var(--secondary-color);
+    margin-bottom: 40px;
+    font-weight: normal;
+}
+
+nav {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.btn {
+    display: inline-block;
+    min-width: 120px;  
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.1em;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.header {
+    text-align: right;
+    margin-bottom: 30px;  
+    color: var(--secondary-color);
+}
+
+.note-textarea {
+    width: 390px;      
+    min-height: 80px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.note-wrapper {
+    position: relative;  
+    margin-bottom: 10px;
+    width: 100%;       
+    display: flex;      
+    justify-content: center; 
+}
+
+.remove-btn {
+    position: absolute;  
+    right: 0;          
+    top: 35px;        
+    min-width: 80px;
+    padding: 8px 16px;
+    font-size: 0.9em;
+    background-color: var(--remove-color);
+    color: var(--background-color);
+}
+
+.bottom-buttons {
+    display: flex;
+    gap: 20px;  
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.bottom-buttons .btn {
+    width: 140px;  
+    padding: 12px 0;  
+}
