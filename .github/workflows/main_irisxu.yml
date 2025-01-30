@@ -1,0 +1,31 @@
+name: Build and deploy Node.js app to Azure Web App - irisxu
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18.x'
+
+    - name: Install dependencies and build
+      working-directory: ./COMP4537/labs/3
+      run: |
+        npm install
+
+    - name: 'Deploy to Azure Web App'
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'irisxu'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AZUREWEBAPP_PUBLISHPROFILE_IRISXU }}
+        package: ./COMP4537/labs/3
