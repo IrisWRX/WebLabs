@@ -3,6 +3,6 @@
     "version": "1.0.0",
     "main": "server.js",
     "scripts": {
-        "start": "node labs/3/server.js"
+        "start": "node COMP4537/labs/3/server.js"
     }
 }
