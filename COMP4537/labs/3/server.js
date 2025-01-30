@@ -7,52 +7,72 @@ const message = require('./locals/en/en.json');
 
 const FILE_PATH = path.join(__dirname, 'file.txt'); 
 
-const server = http.createServer((req, res) => {
-    const parsedUrl = url.parse(req.url, true); 
-    const pathname = parsedUrl.pathname;
-    const query = parsedUrl.query;
+class ApiServer {
+    constructor(port = 3000) {
+        this.port = port;
+        this.server = http.createServer((req, res) => this.handleRequest(req, res));
+    }
 
-    if(pathname === '/COMP4537/labs/3/getDate/') {
+    start() {
+        this.server.listen(this.port)
+    }
+
+    handleRequest(req, res) {
+        const parsedUrl = url.parse(req.url, true);
+        const pathname = parsedUrl.pathname;
+        const query = parsedUrl.query;
+
+        if(pathname === '/COMP4537/labs/3/getDate/') {
+            this.handleGetDate(query, res);
+        } else if(pathname === '/COMP4537/labs/3/writeFile/') {
+            this.handleWriteFile(query, res);
+        } else if(pathname.startsWith('/COMP4537/labs/3/readFile/')) {
+            this.handleReadFile(pathname, res);
+        } else {
+            this.sendResponse(res, 404, "404 Not Found")
+        }
+    }
+
+    handleGetDate(query, res) {
         const name = query.name;
         const currentDate = getDate();
-
         let greeting = message.greeting.replace('%1', name).replace('%2', currentDate);
+        this.sendResponse(res, 200, `<html><body style="color: blue;">${greeting}</body></html>`, 'text/html')
+    }
 
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end(`<html><body style="color: blue;">${greeting}</body></html>`)
-    } else if(pathname === '/COMP4537/labs/3/writeFile/') {
+    handleWriteFile(query, res) {
         if(!query.text) {
-            res.writeHead(400, {'Content-Type': 'text/plain'});
-            res.end("Missing 'text' parameter");
+            this.sendResponse(res, 400, "Missing 'text' parameter");
             return;
         }
 
         fs.appendFile(FILE_PATH, query.text + '\n', (err) => {
             if(err) {
-                res.writeHead(500, {'Content-Type': 'text/plain'}); 
-                res.end("Unable to write to file")
+                this.sendResponse(res, 500, "Unable to write to file")
             } else {
-                res.writeHead(200, {'Content-Type': 'text/plain'});
-                res.end("Text appended successfully")
+                this.sendResponse(res, 200, "Text appended successfully")
             }
-        })
-    } else if(pathname === '/COMP4537/labs/3/readFile/file.txt') {
-        fs.readFile(FILE_PATH, 'utf8', (err, data) => { 
-            if(err) {
-                res.writeHead(404, {'Content-Type': 'text/plain'});
-                res.end(`File 'file.txt' not found`);
-            } else {
-                res.writeHead(200, {'Content-Type': 'text/plain'});
-                res.end(data)
-            }
-        })
-    } else {
-        res.writeHead(404, {'Content-Type': 'text/plain'});
-        res.end("404 Not found");
+        });
     }
-})
 
-const port = process.env.PORT || 3000; 
-server.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-})
+    handleReadFile(pathname, res) {
+        const fileName = path.basename(pathname);
+        const filePath = path.join(__dirname, fileName);
+ 
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if(err) {
+                this.sendResponse(res, 404, `File '${fileName}' not found`)
+            } else {
+                this.sendResponse(res, 200, data);
+            }
+        })
+    }
+
+    sendResponse(res, statusCode, message, contentType = 'text/plain') {
+        res.writeHead(statusCode, {'Content-Type': contentType});
+        res.end(message);
+    }
+}
+
+const apiServer = new ApiServer(process.env.PORT);
+apiServer.start();
