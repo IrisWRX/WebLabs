@@ -1,8 +1,0 @@
-{
-    "name": "comp4537-lab3",
-    "version": "1.0.0",
-    "main": "server.js",
-    "scripts": {
-        "start": "node COMP4537/labs/3/server.js"
-    }
-}
