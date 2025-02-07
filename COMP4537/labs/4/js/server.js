@@ -73,7 +73,7 @@ class DictionaryClient {
     }
 }
 
-const apiUrl = "https://ec2-54-234-123-235.compute-1.amazonaws.com/api/definitions";
+const apiUrl = "https://api.echo-wang.me/api/definitions";
 const dictionaryClient = new DictionaryClient(apiUrl);
 
 const storeForm = document.getElementById("storeForm");
