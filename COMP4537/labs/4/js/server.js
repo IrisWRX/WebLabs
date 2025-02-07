@@ -33,7 +33,6 @@ class DictionaryClient {
                 }
 
                 document.getElementById("response").innerText = `Request #${response.requestCount}\n${message}`;
-
                 document.getElementById("storeError").innerText = "";
             } else {
                 document.getElementById("storeError").innerText = messages.networkError;
@@ -64,7 +63,6 @@ class DictionaryClient {
                 }
 
                 document.getElementById("result").innerText = message;
-
                 document.getElementById("searchError").innerText = "";
             } else {
                 document.getElementById("searchError").innerText = messages.networkError;
@@ -80,6 +78,9 @@ const dictionaryClient = new DictionaryClient(apiUrl);
 
 const storeForm = document.getElementById("storeForm");
 const searchForm = document.getElementById("searchForm");
+const wordInput = document.getElementById("word");
+const definitionInput = document.getElementById("definition");
+const searchInput = document.getElementById("searchWord");
 
 if(storeForm) {
     storeForm.addEventListener("submit", (event) => {
@@ -111,3 +112,9 @@ if(searchForm) {
         dictionaryClient.searchDefinition(word);
     })
 }
+
+if(wordInput) wordInput.addEventListener("focus", () => document.getElementById("storeError").innerText = "");
+
+if(definitionInput) definitionInput.addEventListener("focus", () => document.getElementById("storeError").innerText = "");
+
+if(searchInput) searchInput.addEventListener("focus", () => document.getElementById("searchError").innerText = "");
