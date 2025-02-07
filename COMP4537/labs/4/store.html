@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <title>Add a word</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1 id="pageTitle">Add a word</h1>
+
+    <form id="storeForm">
+        <div>
+            <label for="word" id="wordLabel">Word: </label>
+            <input type="text" id="word" name="word">
+        </div>
+        <br>
+        <div>
+            <label for="definition" id="definitionLabel">Definition: </label>
+            <textarea id="definition" name="definition" rows="4" cols="50"></textarea>
+        </div>
+        <br>
+        <button type="submit" id="storeButton">Add</button>
+        <span id="storeError" class="error-message"></span>
+    </form>
+
+    <div id="response"></div>
+
+    <script type="module" src="js/server.js"></script>
+</body>
+</html>

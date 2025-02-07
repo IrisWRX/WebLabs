@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Search for a word</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1 id="pageTitle">Search for a word</h1>
+    
+    <form id="searchForm">
+        <div>
+            <label for="searchWord" id="searchLabel">Word: </label>
+            <input type="text" id="searchWord" name="searchWord">
+        </div>
+        <br>
+        <button type="submit" id="searchButton">Search</button>
+        <span id="searchError" class="error-message"></span>
+    </form>
+
+    <div id="result"></div>
+
+    <script type="module" src="js/server.js"></script>
+</body>
+</html>
