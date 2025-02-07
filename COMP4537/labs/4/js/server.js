@@ -22,9 +22,18 @@ class DictionaryClient {
         xhr.open("POST", `${this.apiUrl}/definitions`, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = function() {
-            if(xhr.status === 200) {
+            if(xhr.status === 200 || xhr.status === 400) {
                 const response = JSON.parse(xhr.responseText);
-                document.getElementById("response").innerText = `Request #${response.requestCount}: ${response.message}\nTotal entries: ${response.totalEntries}`;
+
+                let message = "";
+                if(response.type === "success") {
+                    message = `New entry recorded: "${response.word}: ${response.definition}"\nTotal entries: ${response.wordCount}`;
+                } else {
+                    message = `Warning! Word "${word}" already exists.`;
+                }
+
+                document.getElementById("response").innerText = `Request #${response.requestCount}\n${message}`;
+
                 document.getElementById("storeError").innerText = "";
             } else {
                 document.getElementById("storeError").innerText = messages.networkError;
@@ -46,12 +55,16 @@ class DictionaryClient {
         xhr.onload = function() {
             if(xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
-                const result = document.getElementById("result");
+                
+                let message = "";
                 if(response.definition) {
-                    result.innerText = `Request #${response.requestCount}: Definition of "${word}" is "${response.definition}"`;
+                    message = `Request #${response.requestCount}\n${response.definition.word}: ${response.definition.definition}`;
                 } else {
-                    result.innerText = `Request #${response.requestCount}: ${messages.notFound} "${word}"`;
+                    message = `Request #${response.requestCount}\nWord "${word}" not found!`;
                 }
+
+                document.getElementById("result").innerText = message;
+
                 document.getElementById("searchError").innerText = "";
             } else {
                 document.getElementById("searchError").innerText = messages.networkError;
@@ -62,7 +75,7 @@ class DictionaryClient {
     }
 }
 
-const apiUrl = "";
+const apiUrl = "http://ec2-54-234-123-235.compute-1.amazonaws.com/api";
 const dictionaryClient = new DictionaryClient(apiUrl);
 
 const storeForm = document.getElementById("storeForm");
