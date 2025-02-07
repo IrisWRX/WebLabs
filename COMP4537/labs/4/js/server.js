@@ -19,7 +19,7 @@ class DictionaryClient {
         }
 
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", `${this.apiUrl}/definitions`, true);
+        xhr.open("POST", `${this.apiUrl}`, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = function() {
             if(xhr.status === 200 || xhr.status === 400) {
@@ -51,7 +51,7 @@ class DictionaryClient {
         }
 
         const xhr = new XMLHttpRequest();
-        xhr.open("GET", `${this.apiUrl}/definitions?word=${word}`, true);
+        xhr.open("GET", `${this.apiUrl}?word=${word}`, true);
         xhr.onload = function() {
             if(xhr.status === 200) {
                 const response = JSON.parse(xhr.responseText);
@@ -75,7 +75,7 @@ class DictionaryClient {
     }
 }
 
-const apiUrl = "http://ec2-54-234-123-235.compute-1.amazonaws.com/api";
+const apiUrl = "https://ec2-54-234-123-235.compute-1.amazonaws.com/api/definitions";
 const dictionaryClient = new DictionaryClient(apiUrl);
 
 const storeForm = document.getElementById("storeForm");
