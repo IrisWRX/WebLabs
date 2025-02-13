@@ -14,9 +14,12 @@ class SQLClient {
     addEventListeners() {
         this.insertButton.addEventListener("click", () => {
             this.queryInput.value = "";
-            this.insertSampleData()
+            this.insertSampleData();
         });
-        this.submitQueryButton.addEventListener("click", () => this.runQuery());
+        this.submitQueryButton.addEventListener("click", () => {
+            this.resultDisplay.textContent = "";
+            this.runQuery();
+        });
         this.queryInput.addEventListener("focus", () => {
             this.errorMessage.textContent = "";
             this.resultDisplay.textContent = "";
