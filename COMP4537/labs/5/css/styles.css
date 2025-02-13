@@ -1,0 +1,90 @@
+/* Styles have been created with assistance from Claude 3.5 Sonnet. */
+
+body {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;  
+  background-color: #f8fafc;  
+  color: #2c3e50;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: white;
+  padding: 40px; 
+  border-radius: 12px;  
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);  
+  text-align: center;
+  width: 700px;  
+  max-width: 90%;  
+}
+
+.button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 14px 24px;  
+  cursor: pointer;
+  border-radius: 6px;
+  margin-top: 12px;
+  font-size: 1rem;
+  font-weight: 500; 
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.1); 
+}
+
+.button:hover {
+  background-color: #2980b9;
+  transform: translateY(-1px);  
+  box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+}
+
+textarea {
+  width: 100%; 
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #e1e8f0;  
+  font-family: inherit; 
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+  resize: vertical;
+  min-height: 120px; 
+  margin: 15px 0;  
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);  
+}
+
+pre {
+  background-color: #f8fafc;
+  padding: 16px;
+  border-radius: 6px;
+  text-align: left;
+  overflow-x: auto;
+  border: 1px solid #e1e8f0;
+  margin-top: 20px;
+  font-family: 'Consolas', monospace;  
+}
+
+pre:empty {
+  display: none;
+}
+
+hr {
+  width: 100%;
+  border: none;
+  height: 1px;
+  background-color: #e1e8f0;
+  margin: 25px 0; 
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  font-weight: 500;
+}

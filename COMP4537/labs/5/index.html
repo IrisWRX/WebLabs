@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>SQL Query Tool</title>
+        <link rel="stylesheet" href="./css/styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>SQL Query Tool</h1>
+            <button id="insertButton" class="button">Insert Sample Data</button>
+            <hr>
+            <textarea id="queryInput" placeholder="Enter SQL query (SELECT or INSERT only)" rows="4" cols="50"></textarea>
+            <br>
+            <button id="submitQueryButton" class="button">Run Query</button>
+            <p id="errorMessage" class="error-message"></p>
+            <br><br>
+            <pre id="resultDisplay"></pre>
+        </div>
+
+        <script type="module" src="./js/server.js"></script>
+    </body>
+</html>

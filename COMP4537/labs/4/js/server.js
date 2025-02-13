@@ -27,12 +27,12 @@ class DictionaryClient {
 
                 let message = "";
                 if(response.type === "success") {
-                    message = `New entry recorded: "${response.word}: ${response.definition}"\nTotal entries: ${response.wordCount}`;
+                    message = messages.newEntry(response.word, response.definition, response.wordCount);
                 } else {
-                    message = `Warning! Word "${word}" already exists.`;
+                    message = messages.wordExists(word);
                 }
 
-                document.getElementById("response").innerText = `Request #${response.requestCount}\n${message}`;
+                document.getElementById("response").innerText = messages.requestPrefix(response.requestCount) + message;
                 document.getElementById("storeError").innerText = "";
             } else {
                 document.getElementById("storeError").innerText = messages.networkError;
@@ -57,9 +57,11 @@ class DictionaryClient {
                 
                 let message = "";
                 if(response.definition) {
-                    message = `Request #${response.requestCount}\n${response.definition.word}: ${response.definition.definition}`;
+                    message = messages.requestPrefix(response.requestCount) + 
+                    `${response.definition.word}: ${response.definition.definition}`;
                 } else {
-                    message = `Request #${response.requestCount}\nWord "${word}" not found!`;
+                    message = messages.requestPrefix(response.requestCount) + 
+                    messages.wordNotFound(word);
                 }
 
                 document.getElementById("result").innerText = message;
@@ -75,7 +77,6 @@ class DictionaryClient {
 
 const apiUrl = "https://api.echo-wang.me/api/definitions";
 const dictionaryClient = new DictionaryClient(apiUrl);
-
 const storeForm = document.getElementById("storeForm");
 const searchForm = document.getElementById("searchForm");
 const wordInput = document.getElementById("word");
