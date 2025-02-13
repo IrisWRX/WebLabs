@@ -1,5 +1,4 @@
 // Code structure has been organized with assistance from ChatGPT 4o.
-
 import { messages } from "../lang/messages/en/user.js";
 
 class SQLClient {
@@ -13,7 +12,10 @@ class SQLClient {
     }
 
     addEventListeners() {
-        this.insertButton.addEventListener("click", () => this.insertSampleData());
+        this.insertButton.addEventListener("click", () => {
+            this.queryInput.value = "";
+            this.insertSampleData()
+        });
         this.submitQueryButton.addEventListener("click", () => this.runQuery());
         this.queryInput.addEventListener("focus", () => {
             this.errorMessage.textContent = "";
@@ -23,19 +25,19 @@ class SQLClient {
 
     insertSampleData() {
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", "", true);
+        xhr.open("POST", "https://lab5.echo-wang.me/api/v1/insertDefaultPatients", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = () => { 
             if(xhr.readyState === 4) { 
-                this.resultDisplay.textContent = xhr.status === 200 ? messages.responseSuccess : messages.responseError;
+                this.resultDisplay.textContent = xhr.status === 200 ? JSON.stringify(JSON.parse(xhr.responseText), null, 2) : 
+                messages.responseError;
             }
         };
-        xhr.send(JSON.stringify({ sampleData: true })); 
+        xhr.send(); 
     }
 
     runQuery() {
         const query = this.queryInput.value.trim();
-        this.errorMessage.textContent = "";
 
         if(!query) {
             this.errorMessage.textContent = messages.errorEmptyQuery;
@@ -48,13 +50,20 @@ class SQLClient {
 
         const xhr = new XMLHttpRequest();
         const method = query.toUpperCase().startsWith("SELECT") ? "GET" : "POST";
-        xhr.open(method, "", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
+        const url = method === "GET" ? `https://lab5.echo-wang.me/api/v1/sql/${encodeURIComponent(query)}` : "https://lab5.echo-wang.me/api/v1/sql";
+        
+        xhr.open(method, url, true);
+
+        if(method === "POST") {
+            xhr.setRequestHeader("Content-Type", "application/json");
+        }
+
         xhr.onreadystatechange = () => {
             if(xhr.readyState === 4) {
                 this.resultDisplay.textContent = xhr.status === 200 ? JSON.stringify(JSON.parse(xhr.responseText), null, 2) : messages.responseError; 
             }
         };
+        
         xhr.send(method === "POST" ? JSON.stringify({ query }) : null);
     }
 }
