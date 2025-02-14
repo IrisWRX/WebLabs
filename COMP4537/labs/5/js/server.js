@@ -25,9 +25,7 @@ class SQLClient {
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = () => { 
             if(xhr.readyState === 4) { 
-                const response = JSON.parse(xhr.responseText);
-                const affectedRows = response.data.affectedRows;
-                this.resultDisplay.textContent = messages.insertSuccess(affectedRows);
+                this.resultDisplay.textContent = messages.insertSuccess;
             }
         };
         xhr.send(); 
@@ -36,7 +34,7 @@ class SQLClient {
     runQuery() {
         this.errorMessage.textContent = "";
         this.resultDisplay.textContent = "";
-        
+
         const query = this.queryInput.value.trim();
 
         if(!query) {
@@ -102,8 +100,7 @@ class SQLClient {
                     this.resultDisplay.textContent = '';
                     this.resultDisplay.appendChild(table);
                 } else {
-                    const affectedRows = response.data.affectedRows;
-                    this.resultDisplay.textContent = messages.insertSuccess(affectedRows);
+                    this.resultDisplay.textContent = messages.insertSuccess;
                 }
             }
         };
