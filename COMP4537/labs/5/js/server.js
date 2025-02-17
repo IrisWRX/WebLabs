@@ -8,6 +8,7 @@ class SQLClient {
         this.queryInput = document.getElementById("queryInput");
         this.errorMessage = document.getElementById("errorMessage");
         this.resultDisplay = document.getElementById("resultDisplay");
+
         this.addEventListeners();
     }
 
@@ -23,11 +24,18 @@ class SQLClient {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "https://lab5.echo-wang.me/api/v1/insertDefaultPatients", true);
         xhr.setRequestHeader("Content-Type", "application/json");
+
         xhr.onreadystatechange = () => { 
             if(xhr.readyState === 4) { 
-                this.resultDisplay.textContent = messages.insertSuccess;
+                const response = JSON.parse(xhr.responseText);
+                if(response.error) {
+                    this.resultDisplay.textContent = response.error;
+                } else {
+                    this.resultDisplay.textContent = messages.insertSuccess;
+                }
             }
         };
+
         xhr.send(); 
     }
 
@@ -42,7 +50,7 @@ class SQLClient {
             return;
         }
 
-        if(!/^SELECT|INSERT/i.test(query)) { 
+        if(!/^\s*(SELECT|INSERT)\s/i.test(query)) { 
             this.errorMessage.textContent = messages.errorInvalidQuery;
             return;
         }
@@ -96,7 +104,7 @@ class SQLClient {
                         tbody.appendChild(tr);
                     });
                     table.appendChild(tbody);
-                    
+    
                     this.resultDisplay.textContent = '';
                     this.resultDisplay.appendChild(table);
                 } else {
